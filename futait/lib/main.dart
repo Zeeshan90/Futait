@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -8,20 +10,42 @@ import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-void main() {
+Future<void> main() async {
 
   // Step 2
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+  await Firebase.initializeApp();
 
-  // Step 3
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]).then((value) => runApp(MyApp()));
 
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+
+  /// FCM Backgroung Listner
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+      AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
+
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+  const AndroidInitializationSettings initializationSettingsAndroid =
+  AndroidInitializationSettings(
+    '@mipmap/ic_launcher',
+  );
+
+  var initializationSettingsIOS = IOSInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,);
+      // onDidReceiveLocalNotification: (int id, String title, String body, String payload) async {}));
+
+  var initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      );
 
   runApp(MyApp());
 }
@@ -33,6 +57,14 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'This channel is used for important notifications.', // description
     importance: Importance.high,
     playSound: true);
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+FlutterLocalNotificationsPlugin();
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+}
+
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
@@ -56,4 +88,7 @@ class MyApp extends StatelessWidget {
 
   
 }
+
+
+
 

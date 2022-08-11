@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:futait/Constants.dart';
 import 'package:futait/Controller/Manager.dart';
@@ -25,6 +26,16 @@ class _HomePageState extends State<HomePage> {
     myBanner.load();
     myNative!.load();
     _loadIntertialAdd();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+        Get.snackbar(message.notification!.title!, message.notification!.body!);
+      }
+
+    });
   }
 
   final BannerAd myBanner = BannerAd(

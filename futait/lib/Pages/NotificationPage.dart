@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:futait/Constants.dart';
@@ -26,6 +27,16 @@ class _NotificationPageState extends State<NotificationPage> {
     super.initState();
     myBanner.load();
     _loadIntertialAdd();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+        Get.snackbar(message.notification!.title!, message.notification!.body!);
+      }
+
+    });
   }
 
   final BannerAd myBanner = BannerAd(

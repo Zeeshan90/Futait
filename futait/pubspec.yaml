@@ -40,7 +40,8 @@ dependencies:
   cached_network_image: ^3.2.1
   google_mobile_ads: ^2.0.0
   flutter_local_notifications: ^9.4.0
-  firebase_messaging: ^10.0.4
+  firebase_messaging: any
+  firebase_core: ^1.18.0
 
 
 dev_dependencies:

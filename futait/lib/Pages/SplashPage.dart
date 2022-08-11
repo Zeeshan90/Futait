@@ -12,18 +12,22 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   Manager manager = Get.find(tag: 'manager');
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     manager.getAllCategories(isLoading: false);
-    // FirebaseMessaging.onBackgroundMessage((message) {
-    //   print('Firebase onBackgroundMessage Listening');
-    //   authServices.getConversation(
-    //       conversationId: authServices.currentConversationID.value,
-    //       loading: false);
-    //   return authServices.getConversation();
-    // });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+        Get.snackbar(message.notification!.title!, message.notification!.body!);
+      }
+
+    });
   }
 
   @override
