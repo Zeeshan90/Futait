@@ -176,7 +176,7 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(
+            child: SizedBox(
               width: myBanner.size.width.toDouble(),
               height: myBanner.size.height.toDouble(),
               child: AdWidget(ad: myBanner),

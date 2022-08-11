@@ -28,7 +28,6 @@ class _NotificationPageState extends State<NotificationPage> {
     _loadIntertialAdd();
   }
 
-
   final BannerAd myBanner = BannerAd(
     adUnitId: Constants.BANNER_ID,
     size: AdSize.banner,
@@ -36,7 +35,7 @@ class _NotificationPageState extends State<NotificationPage> {
     listener: const BannerAdListener(),
   );
 
-  _loadIntertialAdd(){
+  _loadIntertialAdd() {
     InterstitialAd.load(
         adUnitId: Constants.INTERITIAL_ID,
         request: AdRequest(),
@@ -46,13 +45,10 @@ class _NotificationPageState extends State<NotificationPage> {
             _interstitialAd = ad;
           },
           onAdFailedToLoad: (LoadAdError error) {
-            print(
-                'InterstitialAd failed to load: $error');
+            print('InterstitialAd failed to load: $error');
           },
         ));
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +66,8 @@ class _NotificationPageState extends State<NotificationPage> {
                       )
                     : manager.notificationsModel!.notifications!.isNotEmpty
                         ? ListView.builder(
-                            itemCount:
-                                manager.notificationsModel!.notifications!.length,
+                            itemCount: manager
+                                .notificationsModel!.notifications!.length,
                             itemBuilder: (BuildContext context, int index) {
                               return InkWell(
                                 onTap: () {
@@ -100,7 +96,8 @@ class _NotificationPageState extends State<NotificationPage> {
                                             child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               manager.notificationsModel!
@@ -119,8 +116,10 @@ class _NotificationPageState extends State<NotificationPage> {
                                                           .length >=
                                                       100
                                                   ? '${manager.notificationsModel!.notifications![index].body.substring(0, 100)}...'
-                                                  : manager.notificationsModel!
-                                                      .notifications![index].body,
+                                                  : manager
+                                                      .notificationsModel!
+                                                      .notifications![index]
+                                                      .body,
                                               style: const TextStyle(
                                                   color: Colors.grey,
                                                   fontWeight: FontWeight.w400),

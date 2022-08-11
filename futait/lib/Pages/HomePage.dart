@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     myBanner.load();
-    myNative.load();
+    myNative!.load();
     _loadIntertialAdd();
   }
 
@@ -34,14 +34,22 @@ class _HomePageState extends State<HomePage> {
     listener: BannerAdListener(),
   );
 
-  final NativeAd myNative = NativeAd(
+  final NativeAd? myNative = NativeAd(
     adUnitId: Constants.NATIVE_ID,
     factoryId: 'adFactoryExample',
     request: AdRequest(),
     listener: NativeAdListener(),
   );
 
-  _loadIntertialAdd(){
+  Widget loadNativeAd() {
+    if (myNative != null) {
+      return AdWidget(ad: myNative!);
+    } else {
+      return const SizedBox();
+    }
+  }
+
+  _loadIntertialAdd() {
     InterstitialAd.load(
         adUnitId: Constants.INTERITIAL_ID,
         request: AdRequest(),
@@ -51,8 +59,7 @@ class _HomePageState extends State<HomePage> {
             _interstitialAd = ad;
           },
           onAdFailedToLoad: (LoadAdError error) {
-            print(
-                'InterstitialAd failed to load: $error');
+            print('InterstitialAd failed to load: $error');
           },
         ));
   }
@@ -110,16 +117,17 @@ class _HomePageState extends State<HomePage> {
                     )
                   : manager.categroiesModel!.categories!.isNotEmpty
                       ? ListView.builder(
-                          itemCount: manager.categroiesModel!.categories!.length,
+                          itemCount:
+                              manager.categroiesModel!.categories!.length,
                           itemBuilder: (BuildContext context, int index) {
                             return InkWell(
                               onTap: () {
-                                if (_interstitialAd != null){
+                                if (_interstitialAd != null) {
                                   _interstitialAd!.show();
                                 }
 
-                                Get.to(DashboardPage(
-                                    manager.categroiesModel!.categories![index].id!));
+                                Get.to(DashboardPage(manager
+                                    .categroiesModel!.categories![index].id!));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10),
@@ -151,8 +159,10 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       Expanded(
                                           child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             manager.categroiesModel!
