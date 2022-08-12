@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -150,30 +151,41 @@ class _DashboardPageState extends State<DashboardPage> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 10),
                                 child: Container(
-                                  padding:
-                                      const EdgeInsets.only(bottom: 15, left: 15),
                                   height: 200,
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(15),
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        Constants.Base_URL +
-                                            dashboard.channels.value[index].image!,
-                                      ),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                width: Get.width,
+                                decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                                  child: Stack(
+                                    fit: StackFit.expand,
                                     children: [
-                                      Text(
-                                        dashboard.channels.value[index].name!,
-                                        style: const TextStyle(
-                                            fontSize: 18.0,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: CachedNetworkImage(
+                                          fit: BoxFit.cover,
+                                          imageUrl: Constants.Base_URL +
+                                              dashboard.channels.value[index].image!,
+                                          placeholder: (context, url) =>
+                                          const Center(child: CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              dashboard.channels.value[index].name!,
+                                              style: const TextStyle(
+                                                  fontSize: 18.0,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
