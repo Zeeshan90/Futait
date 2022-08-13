@@ -37,10 +37,8 @@ class _DashboardPageState extends State<DashboardPage> {
         print('Message also contained a notification: ${message.notification}');
         Get.snackbar(message.notification!.title!, message.notification!.body!);
       }
-
     });
   }
-
 
   final BannerAd myBanner = BannerAd(
     adUnitId: Constants.BANNER_ID,
@@ -49,7 +47,7 @@ class _DashboardPageState extends State<DashboardPage> {
     listener: const BannerAdListener(),
   );
 
-  _loadIntertialAdd(){
+  _loadIntertialAdd() {
     InterstitialAd.load(
         adUnitId: Constants.INTERITIAL_ID,
         request: AdRequest(),
@@ -59,8 +57,7 @@ class _DashboardPageState extends State<DashboardPage> {
             _interstitialAd = ad;
           },
           onAdFailedToLoad: (LoadAdError error) {
-            print(
-                'InterstitialAd failed to load: $error');
+            print('InterstitialAd failed to load: $error');
           },
         ));
   }
@@ -123,13 +120,14 @@ class _DashboardPageState extends State<DashboardPage> {
                           itemBuilder: (BuildContext context, int index) {
                             return InkWell(
                               onTap: () {
-                                if (_interstitialAd != null){
+                                if (_interstitialAd != null) {
                                   _interstitialAd!.show();
                                 }
 
-                                var key = dashboard.channels.value[index].keys != null
-                                    ? dashboard.channels.value[index].keys!
-                                    : "";
+                                var key =
+                                    dashboard.channels.value[index].keys != null
+                                        ? dashboard.channels.value[index].keys!
+                                        : "";
                                 var newText = key.substring(1, key.length - 1);
                                 var parts = newText.split(',');
                                 Map<String, String> map = {};
@@ -143,8 +141,10 @@ class _DashboardPageState extends State<DashboardPage> {
                                 }
                                 // _interstitialAd.dispose();
                                 Get.to(
-                                  StreamingPage(dashboard.channels.value[index].url!,
-                                      map, dashboard.channels.value[index].urls!),
+                                  StreamingPage(
+                                      dashboard.channels.value[index].url!,
+                                      map,
+                                      dashboard.channels.value[index].urls!),
                                 );
                               },
                               child: Padding(
@@ -152,10 +152,10 @@ class _DashboardPageState extends State<DashboardPage> {
                                     horizontal: 20, vertical: 10),
                                 child: Container(
                                   height: 200,
-                                width: Get.width,
-                                decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
+                                  width: Get.width,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
                                   child: Stack(
                                     fit: StackFit.expand,
                                     children: [
@@ -164,21 +164,27 @@ class _DashboardPageState extends State<DashboardPage> {
                                         child: CachedNetworkImage(
                                           fit: BoxFit.cover,
                                           imageUrl: Constants.Base_URL +
-                                              dashboard.channels.value[index].image!,
+                                              dashboard
+                                                  .channels.value[index].image!,
                                           placeholder: (context, url) =>
-                                          const Center(child: CircularProgressIndicator()),
+                                              const Center(
+                                                  child:
+                                                      CircularProgressIndicator()),
                                           errorWidget: (context, url, error) =>
-                                          const Icon(Icons.error),
+                                              const Icon(Icons.error),
                                         ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(10.0),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           children: [
                                             Text(
-                                              dashboard.channels.value[index].name!,
+                                              dashboard
+                                                  .channels.value[index].name!,
                                               style: const TextStyle(
                                                   fontSize: 18.0,
                                                   color: Colors.white,

@@ -15,6 +15,7 @@ class Constants{
   static const NOTIFICATION_URL = 'https://livestream.codelogixs.com/public/api/get-all-notifications';
   static const CATEGORIES_URL = 'https://livestream.codelogixs.com/public/api/getCategories';
   static const CHANNELS_URL = 'https://livestream.codelogixs.com/public/api/getChannels';
+  static const FCM_URL = 'https://livestream.codelogixs.com/public/api/send-device-token';
   static const HEADER_KEY = 'cfOiC2i+nw7K7VXH1+eUkVmzULbq2Wdo/lfTzMCht9w=';
 
 

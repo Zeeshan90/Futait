@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
       }
 
     });
+    manager.sendFcmToken();
   }
 
   final BannerAd myBanner = BannerAd(

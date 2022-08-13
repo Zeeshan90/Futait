@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:futait/Models/ChannelModels.dart';
+import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../Constants.dart';
@@ -20,7 +23,6 @@ class _StreamingPageState extends State<StreamingPage> {
   late BetterPlayerController _clearKeyControllerNetwork;
   InterstitialAd? _interstitialAd;
 
-
   final BannerAd myBanner = BannerAd(
     adUnitId: Constants.BANNER_ID,
     size: AdSize.banner,
@@ -28,7 +30,7 @@ class _StreamingPageState extends State<StreamingPage> {
     listener: BannerAdListener(),
   );
 
-  _loadIntertialAdd(){
+  _loadIntertialAdd() {
     InterstitialAd.load(
         adUnitId: Constants.INTERITIAL_ID,
         request: AdRequest(),
@@ -38,8 +40,7 @@ class _StreamingPageState extends State<StreamingPage> {
             _interstitialAd = ad;
           },
           onAdFailedToLoad: (LoadAdError error) {
-            print(
-                'InterstitialAd failed to load: $error');
+            print('InterstitialAd failed to load: $error');
           },
         ));
   }
@@ -93,8 +94,31 @@ class _StreamingPageState extends State<StreamingPage> {
       body: SafeArea(
         child: Column(
           children: [
-            BetterPlayer(
-              controller: _clearKeyControllerNetwork,
+            Stack(
+              fit: StackFit.passthrough,
+              children: [
+                BetterPlayer(
+                  controller: _clearKeyControllerNetwork,
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      width: 80,
+                      height: 60,
+                      color: Colors.black87,
+                      child: Image.asset(
+                        "assets/icon.png",
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Expanded(
                 child: Padding(
@@ -104,7 +128,7 @@ class _StreamingPageState extends State<StreamingPage> {
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () {
-                      if (_interstitialAd != null){
+                      if (_interstitialAd != null) {
                         _interstitialAd!.show();
                       }
 
@@ -170,5 +194,5 @@ class _StreamingPageState extends State<StreamingPage> {
 
 String name(index) {
   var ind = index + 1;
-  return "Server " + ind.toString();
+  return "Server $ind";
 }

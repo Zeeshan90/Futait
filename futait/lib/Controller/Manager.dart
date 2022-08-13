@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:futait/Models/CategoriesModel.dart';
 import 'package:futait/Models/ChannelModels.dart';
 import 'package:futait/Pages/HomePage.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Constants.dart';
 import '../Models/NotificationModel.dart';
@@ -32,7 +34,6 @@ class Manager extends GetxController {
       print(e);
     }
   }
-
 
   void getAllChannels({isLoading}) async {
     loadingChannels.value = true;
@@ -66,28 +67,35 @@ class Manager extends GetxController {
     }
   }
 
-
-
   var channels = RxList<Channel>().obs;
   var isLoading = true.obs;
 
-  filterVideos(var id){
+  filterVideos(var id) {
     channels.value.clear();
     channelModel?.channels?.forEach((element) {
-      if (element.categoryId == id.toString()){
+      if (element.categoryId == id.toString()) {
         channels.value.add(element);
       }
     });
     isLoading.value = false;
   }
 
-
-
-
-
-
-
-
-
-
+  sendFcmToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? fcmToken = prefs.getString('FCMTOKEN');
+    if (fcmToken == null) {
+      FirebaseMessaging.instance.getToken().then((value) async {
+        String? token = value;
+        prefs.setString('FCMTOKEN', token.toString());
+        try {
+          var response = await Dio().post(Constants.FCM_URL,
+              data: {"device_id": token.toString()},
+              options: Options(headers: {"KEY": Constants.HEADER_KEY}));
+          print(response);
+        } catch (e) {
+          print(e);
+        }
+      });
+    }
+  }
 }
