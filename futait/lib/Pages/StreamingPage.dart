@@ -98,15 +98,15 @@ class _StreamingPageState extends State<StreamingPage> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                   child: Align(
                     alignment: Alignment.topRight,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      width: 80,
-                      height: 60,
-                      color: Colors.black87,
+                          horizontal: 8),
+                      width: 70,
+                      height: 35,
+                      color: Colors.black,
                       child: Image.asset(
                         "assets/icon.png",
                         fit: BoxFit.contain,
