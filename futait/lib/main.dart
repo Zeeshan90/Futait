@@ -1,13 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:futait/Constants.dart';
 import 'package:futait/Controller/Manager.dart';
 import 'package:futait/Pages/SplashPage.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 Future<void> main() async {
@@ -36,11 +34,10 @@ Future<void> main() async {
     '@mipmap/ic_launcher',
   );
 
-  var initializationSettingsIOS = IOSInitializationSettings(
+  var initializationSettingsIOS = const IOSInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,);
-      // onDidReceiveLocalNotification: (int id, String title, String body, String payload) async {}));
 
   var initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid, iOS: initializationSettingsIOS);

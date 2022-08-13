@@ -1,6 +1,4 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'Models/NotificationModel.dart';
 
 class Constants{
 
@@ -23,7 +21,6 @@ class Constants{
   static const BANNER_ID = "ca-app-pub-5362074492136950/3055674376";
   static const INTERITIAL_ID = "ca-app-pub-5362074492136950/9237939344";
   static const NATIVE_ID = "ca-app-pub-5362074492136950/3602469280";
-  // static const NATIVE_ID = "/6499/example/native";
 
 }
 

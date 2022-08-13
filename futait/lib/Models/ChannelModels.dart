@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-ChannelsModel channelsModelFromJson(String str) => ChannelsModel.fromJson(json.decode(str));
+ChannelsModel channelsModelFromJson(String str) =>
+    ChannelsModel.fromJson(json.decode(str));
 
 class ChannelsModel {
   ChannelsModel({
@@ -18,10 +19,13 @@ class ChannelsModel {
   List<Channel>? channels;
 
   factory ChannelsModel.fromJson(Map<String, dynamic> json) => ChannelsModel(
-    responseCode: json["ResponseCode"] == null ? null : json["ResponseCode"],
-    responseMessage: json["ResponseMessage"] == null ? null : json["ResponseMessage"],
-    channels: json["channels"] == null ? null : List<Channel>.from(json["channels"].map((x) => Channel.fromJson(x))),
-  );
+        responseCode: json["ResponseCode"],
+        responseMessage: json["ResponseMessage"],
+        channels: json["channels"] == null
+            ? null
+            : List<Channel>.from(
+                json["channels"].map((x) => Channel.fromJson(x))),
+      );
 }
 
 class Channel {
@@ -46,15 +50,19 @@ class Channel {
   List<Url>? urls;
 
   factory Channel.fromJson(Map<String, dynamic> json) => Channel(
-    id: json["id"] == null ? null : json["id"],
-    categoryId: json["category_id"] == null ? null : json["category_id"],
-    name: json["name"] == null ? null : json["name"],
-    url: json["url"] == null ? null : json["url"],
-    keys: json["keys"] == null ? null : json["keys"],
-    image: json["image"] == null ? null : json["image"],
-    category: json["category"] == null ? null : Category.fromJson(json["category"]),
-    urls: json["urls"] == null ? null : List<Url>.from(json["urls"].map((x) => Url.fromJson(x))),
-  );
+        id: json["id"],
+        categoryId: json["category_id"],
+        name: json["name"] ?? "",
+        url: json["url"] ?? "",
+        keys: json["keys"],
+        image: json["image"],
+        category: json["category"] == null
+            ? null
+            : Category.fromJson(json["category"]),
+        urls: json["urls"] == null
+            ? null
+            : List<Url>.from(json["urls"].map((x) => Url.fromJson(x))),
+      );
 }
 
 class Category {
@@ -71,11 +79,11 @@ class Category {
   String? banner;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-    id: json["id"] == null ? null : json["id"],
-    name: json["name"] == null ? null : json["name"],
-    description: json["description"] == null ? null : json["description"],
-    banner: json["banner"] == null ? null : json["banner"],
-  );
+        id: json["id"],
+        name: json["name"] ?? "",
+        description: json["description"] ?? "",
+        banner: json["banner"] ?? "",
+      );
 }
 
 class Url {
@@ -92,9 +100,8 @@ class Url {
   String? key;
 
   factory Url.fromJson(Map<String, dynamic> json) => Url(
-    id: json["id"] == null ? null : json["id"],
-    channelId: json["channel_id"] == null ? null : json["channel_id"],
-    subUrl: json["sub_url"] == null ? null : json["sub_url"],
-    key: json["key"] == null ? null : json["key"]
-  );
+      id: json["id"],
+      channelId: json["channel_id"],
+      subUrl: json["sub_url"],
+      key: json["key"]);
 }

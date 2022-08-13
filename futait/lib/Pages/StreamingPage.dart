@@ -1,10 +1,6 @@
-import 'dart:ui';
-
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:futait/Models/ChannelModels.dart';
-import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../Constants.dart';
@@ -26,14 +22,14 @@ class _StreamingPageState extends State<StreamingPage> {
   final BannerAd myBanner = BannerAd(
     adUnitId: Constants.BANNER_ID,
     size: AdSize.banner,
-    request: AdRequest(),
-    listener: BannerAdListener(),
+    request: const AdRequest(),
+    listener: const BannerAdListener(),
   );
 
   _loadIntertialAdd() {
     InterstitialAd.load(
         adUnitId: Constants.INTERITIAL_ID,
-        request: AdRequest(),
+        request: const AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
           onAdLoaded: (InterstitialAd ad) {
             // Keep a reference to the ad so you can show it later.

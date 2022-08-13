@@ -16,18 +16,16 @@ class NotificationsModel {
     this.notifications,
   });
 
-  int? responseCode;
-  String? responseMessage;
+  dynamic responseCode;
+  dynamic responseMessage;
   List<NotificationData>? notifications;
 
   factory NotificationsModel.fromJson(Map<String, dynamic> json) =>
       NotificationsModel(
-        responseCode:
-            json["ResponseCode"] == null ? null : json["ResponseCode"],
-        responseMessage:
-            json["ResponseMessage"] == null ? null : json["ResponseMessage"],
+        responseCode: json["ResponseCode"],
+        responseMessage: json["ResponseMessage"] ?? 'null',
         notifications: json["notifications"] == null
-            ? null
+            ? []
             : List<NotificationData>.from(
                 json["notifications"].map((x) => NotificationData.fromJson(x))),
       );
@@ -41,16 +39,16 @@ class NotificationData {
     required this.image,
   });
 
-  int id;
-  String title;
-  String body;
-  String image;
+  dynamic id;
+  dynamic title;
+  dynamic body;
+  dynamic image;
 
   factory NotificationData.fromJson(Map<String, dynamic> json) =>
       NotificationData(
-        id: json["id"] == null ? null : json["id"],
-        title: json["title"] == null ? null : json["title"],
-        body: json["body"] == null ? null : json["body"],
-        image: json["image"] == null ? Constants.placeHolderImageURL : json["image"],
+        id: json["id"] ?? 'null',
+        title: json["title"] ?? 'null',
+        body: json["body"] ?? 'null',
+        image: json["image"] ?? Constants.placeHolderImageURL,
       );
 }

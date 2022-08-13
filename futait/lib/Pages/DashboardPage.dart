@@ -1,13 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:futait/Constants.dart';
 import 'package:futait/Controller/Manager.dart';
 import 'package:futait/Pages/NotificationPage.dart';
 import 'package:futait/Pages/StreamingPage.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -50,7 +48,7 @@ class _DashboardPageState extends State<DashboardPage> {
   _loadIntertialAdd() {
     InterstitialAd.load(
         adUnitId: Constants.INTERITIAL_ID,
-        request: AdRequest(),
+        request: const AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
           onAdLoaded: (InterstitialAd ad) {
             // Keep a reference to the ad so you can show it later.
