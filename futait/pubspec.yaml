@@ -38,7 +38,7 @@ dependencies:
   dio: ^4.0.6
   better_player: ^0.0.67
   cached_network_image: ^3.2.1
-  google_mobile_ads: ^2.0.0
+  google_mobile_ads: ^2.0.1
   flutter_local_notifications: ^9.4.0
   firebase_messaging: any
   firebase_core: ^1.18.0

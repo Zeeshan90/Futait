@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:futait/Constants.dart';
 import 'package:futait/Controller/Manager.dart';
@@ -13,8 +15,12 @@ Future<void> main() async {
   // Step 2
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
-  await Firebase.initializeApp();
+  List<String> testDeviceIds = ["F88603EDBF20756E6A4E7EC87F0FB386"];
 
+  RequestConfiguration configuration = RequestConfiguration(
+      testDeviceIds: testDeviceIds);
+  MobileAds.instance.updateRequestConfiguration(configuration);
+  await Firebase.initializeApp();
 
 
   /// FCM Backgroung Listner
@@ -29,6 +35,7 @@ Future<void> main() async {
     badge: true,
     sound: true,
   );
+
   const AndroidInitializationSettings initializationSettingsAndroid =
   AndroidInitializationSettings(
     '@mipmap/ic_launcher',

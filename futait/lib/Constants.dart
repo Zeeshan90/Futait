@@ -17,10 +17,15 @@ class Constants{
   static const HEADER_KEY = 'cfOiC2i+nw7K7VXH1+eUkVmzULbq2Wdo/lfTzMCht9w=';
 
 
+// ---------------------------Test IDS -------------------------------------
+  static const BANNER_ID =     "ca-app-pub-3940256099942544/6300978111";
+  static const INTERITIAL_ID = "ca-app-pub-3940256099942544/1033173712";
+  static const NATIVE_ID =     "/6499/example/native";
 
-  static const BANNER_ID = "ca-app-pub-5362074492136950/3055674376";
-  static const INTERITIAL_ID = "ca-app-pub-5362074492136950/9237939344";
-  static const NATIVE_ID = "ca-app-pub-5362074492136950/3602469280";
+  // ---------------------------Live IDS -------------------------------------
+  // static const BANNER_ID = "ca-app-pub-5362074492136950/3055674376";
+  // static const INTERITIAL_ID = "ca-app-pub-5362074492136950/9237939344";
+  // static const NATIVE_ID = "ca-app-pub-5362074492136950/3602469280";
 
 }
 

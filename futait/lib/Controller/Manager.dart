@@ -72,7 +72,7 @@ class Manager extends GetxController {
     channels.value.clear();
     channelModel?.channels?.forEach((element) {
       if (element.categoryId == id.toString()) {
-        channels.value.add(element);
+        channels.value.add(element.channel!);
       }
     });
     isLoading.value = false;
